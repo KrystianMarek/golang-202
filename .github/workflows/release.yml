@@ -1,0 +1,81 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Create Release
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Set up Go
+      uses: actions/setup-go@v5
+      with:
+        go-version: '1.24.x'
+
+    - name: Run tests
+      run: go test -v ./...
+
+    - name: Build examples
+      run: |
+        mkdir -p dist
+        GOOS=linux GOARCH=amd64 go build -o dist/golang-202-examples-linux-amd64 ./cmd/examples
+        GOOS=darwin GOARCH=amd64 go build -o dist/golang-202-examples-darwin-amd64 ./cmd/examples
+        GOOS=darwin GOARCH=arm64 go build -o dist/golang-202-examples-darwin-arm64 ./cmd/examples
+        GOOS=windows GOARCH=amd64 go build -o dist/golang-202-examples-windows-amd64.exe ./cmd/examples
+
+    - name: Generate changelog
+      id: changelog
+      run: |
+        # Extract version from tag
+        VERSION=${GITHUB_REF#refs/tags/}
+
+        # Extract changelog for this version
+        sed -n "/## \[${VERSION#v}\]/,/## \[/p" CHANGELOG.md | sed '$ d' > release_notes.md
+
+        # If release notes are empty, use a default message
+        if [ ! -s release_notes.md ]; then
+          echo "Release ${VERSION}" > release_notes.md
+        fi
+
+    - name: Create Release
+      uses: softprops/action-gh-release@v2
+      with:
+        body_path: release_notes.md
+        files: |
+          dist/*
+        draft: false
+        prerelease: ${{ contains(github.ref, 'alpha') || contains(github.ref, 'beta') || contains(github.ref, 'rc') }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  publish-pkg:
+    name: Publish to pkg.go.dev
+    runs-on: ubuntu-latest
+    needs: release
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Go
+      uses: actions/setup-go@v5
+      with:
+        go-version: '1.24.x'
+
+    - name: Trigger pkg.go.dev update
+      run: |
+        VERSION=${GITHUB_REF#refs/tags/}
+        curl -X POST "https://proxy.golang.org/github.com/KrystianMarek/golang-202/@v/${VERSION}.info" || true
+

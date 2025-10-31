@@ -16,7 +16,7 @@ linters:
     - gocyclo
     - revive
     - misspell
-    - exportloopref
+    - copyloopvar  # Replaces deprecated exportloopref (Go 1.22+)
 
 linters-settings:
   gocyclo:

@@ -72,6 +72,8 @@ func runGo124Examples() {
 	go124.ExampleCleanup()
 
 	go124.ExampleGenericAliases()
+
+	go124.ExampleGenerics()
 }
 
 func runOOPExamples() {
@@ -96,6 +98,8 @@ func runIdiomsExamples() {
 
 	idioms.ExampleConcurrency()
 
+	idioms.ExampleChannels()
+
 	idioms.ExampleZeroValues()
 }
 
@@ -108,6 +112,8 @@ func runPatternExamples() {
 	patterns.ExampleBuilder()
 
 	patterns.ExampleObserver()
+
+	patterns.ExampleGenericObserver()
 
 	patterns.ExampleAdapter()
 

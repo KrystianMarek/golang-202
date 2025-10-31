@@ -84,6 +84,14 @@ handle := unique.Make("interned-string")
 
 // Generic type aliases
 type IntList = go124.OrderedSlice[int]
+
+// Generic data structures
+stack := go124.NewStack[int]()
+stack.Push(42)
+val, _ := stack.Pop()
+
+set := go124.NewSet(1, 2, 3)
+cache := go124.NewCache[string, int]()
 ```
 
 **Key Topics:**
@@ -91,6 +99,8 @@ type IntList = go124.OrderedSlice[int]
 - `unique` package for value interning
 - `runtime.AddCleanup` for resource management
 - Parameterized type aliases
+- **Generic data structures** (Stack, Queue, Set, BinaryTree)
+- **Generic constraints** (Number, comparable)
 - Enhanced testing with `testing.B.Loop`
 
 ### `pkg/oop` - Object-Oriented Patterns
@@ -146,6 +156,7 @@ ch := eventBus.Subscribe("user.event")
 - **Creational**: Singleton, Factory, Builder, Prototype, Abstract Factory
 - **Structural**: Adapter, Bridge, Composite, Decorator, Facade, Flyweight, Proxy
 - **Behavioral**: Observer, Strategy, Command, Chain of Responsibility, State, Iterator, and more
+- **Generic Patterns**: Type-safe Observer with generics
 
 ### `pkg/functional` - Functional Programming
 
@@ -199,6 +210,17 @@ ctx := context.Background()
 numbers := idioms.GenerateNumbers(ctx, 1, 100)
 squares := idioms.Square(ctx, numbers)
 
+// Go 1.24: Safe pipelines with guaranteed termination
+output := idioms.SafePipeline(ctx, input)
+for val := range output { // Guaranteed to terminate
+    fmt.Println(val)
+}
+
+// Advanced channel patterns
+broadcaster := idioms.NewBroadcaster[string]()
+sub := broadcaster.Subscribe()
+broadcaster.Send("message")
+
 // Zero value semantics
 var buf idioms.Buffer // No initialization needed
 buf.Write([]byte("data"))
@@ -209,6 +231,8 @@ buf.Write([]byte("data"))
 - Error wrapping (`errors.Is`, `errors.As`)
 - Zero value initialization
 - Goroutines and channels
+- **Go 1.24 enhanced channels** (safe for-range, context integration)
+- **Advanced channel patterns** (Fan-out/Fan-in, Broadcaster, Pipeline)
 - Context propagation
 - `defer` for cleanup
 

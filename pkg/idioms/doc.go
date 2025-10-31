@@ -6,6 +6,7 @@
 //   - Explicit error handling with errors.Is and errors.As
 //   - Zero value semantics for usable defaults
 //   - Goroutines and channels for concurrency
+//   - Go 1.24 enhanced channel patterns (safe for-range, context integration)
 //   - Context propagation for cancellation and timeouts
 //   - Defer for resource cleanup
 //
@@ -16,6 +17,7 @@
 //   - Use defer for cleanup (LIFO ordering)
 //   - Context for cancellation propagation
 //   - Channels for goroutine communication
+//   - Go 1.24: Guaranteed channel termination with for-range
 //
 // Example usage:
 //
@@ -31,10 +33,16 @@
 //			// Handle not found
 //		}
 //
-//		// Concurrency with channels
+//		// Concurrency with channels (Go 1.24)
 //		ctx := context.Background()
 //		numbers := idioms.GenerateNumbers(ctx, 1, 10)
 //		squares := idioms.Square(ctx, numbers)
+//
+//		// Safe pipeline with guaranteed termination
+//		output := idioms.SafePipeline(ctx, numbers)
+//		for val := range output { // Guaranteed to terminate
+//			fmt.Println(val)
+//		}
 //	}
 package idioms
 

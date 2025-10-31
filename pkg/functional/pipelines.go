@@ -218,7 +218,7 @@ func ExamplePipelines() {
 
 	upperWords := NewPipeline(words).
 		Filter(func(s string) bool { return len(s) > 3 }).
-		Map(func(s string) string { return strings.ToUpper(s) }).
+		Map(strings.ToUpper).
 		Collect()
 
 	fmt.Printf("Uppercase words: %v\n\n", upperWords)
@@ -240,14 +240,12 @@ func ExamplePipelines() {
 		fmt.Printf("  %s: %d\n", name, age)
 	}
 
-
 	// Enumerate
 	items := Generator([]string{"apple", "banana", "cherry"})
 	fmt.Println("Enumerated:")
 	for idx, item := range Enumerate(items) {
 		fmt.Printf("  [%d] %s\n", idx, item)
 	}
-
 
 	// Complex pipeline with reduce
 	sum := NewPipeline([]int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}).
@@ -272,4 +270,3 @@ func ExamplePipelines() {
 
 	fmt.Printf("Count of numbers > 5: %d\n", count)
 }
-

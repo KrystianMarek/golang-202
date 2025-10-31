@@ -103,4 +103,3 @@ func ExampleUnique() {
 		fmt.Println(log)
 	}
 }
-

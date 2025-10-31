@@ -121,4 +121,3 @@ func ExampleCleanup() {
 
 	fmt.Println("Example complete")
 }
-

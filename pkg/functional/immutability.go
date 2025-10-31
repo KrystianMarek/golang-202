@@ -270,4 +270,3 @@ func ExampleImmutability() {
 	fmt.Printf("config2: %v\n", config2.GetAll())
 	fmt.Printf("config3: %v\n", config3.GetAll())
 }
-

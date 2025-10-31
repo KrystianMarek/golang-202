@@ -43,11 +43,8 @@ func (r *Runner) Run(name string) bool {
 
 // RunAll runs all registered examples.
 func (r *Runner) RunAll() {
-	for i, ex := range r.examples {
+	for _, ex := range r.examples {
 		r.runExample(ex)
-		if i < len(r.examples)-1 {
-
-		}
 	}
 }
 
@@ -56,7 +53,6 @@ func (r *Runner) runExample(ex Example) {
 	if ex.Description != "" {
 		fmt.Printf("Description: %s\n", ex.Description)
 	}
-
 
 	start := time.Now()
 	ex.Run()
@@ -76,4 +72,3 @@ func (r *Runner) List() {
 
 	}
 }
-

@@ -31,7 +31,7 @@ func (b *Base) Describe() string {
 
 // Extended embeds Base and adds additional functionality.
 type Extended struct {
-	Base // Embedding promotes Base's fields and methods
+	Base  // Embedding promotes Base's fields and methods
 	Extra string
 }
 
@@ -163,7 +163,7 @@ type Car struct {
 }
 
 // NewCar creates a car with components.
-func NewCar(model string, hp int, wheelCount int) *Car {
+func NewCar(model string, hp, wheelCount int) *Car {
 	return &Car{
 		Engine: &Engine{Horsepower: hp},
 		Wheels: &Wheels{Count: wheelCount},
@@ -214,4 +214,3 @@ func ExampleComposition() {
 	car := NewCar("Tesla Model 3", 283, 4)
 	fmt.Println(car.Drive())
 }
-

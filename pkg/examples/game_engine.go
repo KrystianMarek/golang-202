@@ -54,7 +54,7 @@ func (e *BaseEntity) Update(deltaTime float64) {
 
 // PositionComponent tracks position.
 type PositionComponent struct {
-	X, Y     float64
+	X, Y       float64
 	VelX, VelY float64
 }
 
@@ -279,4 +279,3 @@ func ExampleGameEngine() {
 
 	game.Render()
 }
-

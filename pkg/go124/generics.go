@@ -178,7 +178,7 @@ func (t *BinaryTree[T]) Insert(value T, less func(T, T) bool) {
 	}
 }
 
-// Constraint-based number types.
+// Number represents constraint-based number types.
 type Number interface {
 	~int | ~int8 | ~int16 | ~int32 | ~int64 |
 		~uint | ~uint8 | ~uint16 | ~uint32 | ~uint64 |
@@ -245,7 +245,7 @@ func (r GenericResult[T]) Map(fn func(T) T) GenericResult[T] {
 	return r
 }
 
-// Generic cache with type safety.
+// Cache is a generic cache with type safety.
 type Cache[K comparable, V any] struct {
 	data map[K]V
 }
@@ -362,4 +362,3 @@ func ExampleGenerics() {
 	fmt.Printf("\nCache get 'age': %d (found: %v)\n", age, ok)
 	fmt.Printf("Cache keys: %v\n", cache.Keys())
 }
-

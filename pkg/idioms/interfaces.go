@@ -129,7 +129,7 @@ func (f *File) Close() error {
 	return nil
 }
 
-// Accept any type (empty interface pattern - pre-generics).
+// Container accepts any type (empty interface pattern - pre-generics).
 type Container struct {
 	items []interface{}
 }
@@ -164,7 +164,7 @@ func (c *Container) GetAs(index int, target interface{}) bool {
 	return true
 }
 
-// Stringer demonstrates implementing standard interfaces.
+// Person demonstrates implementing standard interfaces.
 type Person struct {
 	Name string
 	Age  int
@@ -263,9 +263,8 @@ func ExampleInterfaces() {
 	data, _ := file.Read()
 	fmt.Printf("Read from file: %s\n", data)
 
-	file.Write(" appended")
-	file.Close()
-
+	_ = file.Write(" appended")
+	_ = file.Close()
 
 	// Empty interface (pre-generics pattern)
 	container := NewContainer()
@@ -279,7 +278,6 @@ func ExampleInterfaces() {
 		}
 	}
 
-
 	// Validator interface
 	email := Email{Address: "user@example.com"}
 	if err := email.Validate(); err != nil {
@@ -287,7 +285,6 @@ func ExampleInterfaces() {
 	} else {
 		fmt.Println("Email is valid")
 	}
-
 
 	// Processor chain (dependency injection)
 	chain := NewProcessorChain(
@@ -298,4 +295,3 @@ func ExampleInterfaces() {
 	result := chain.Process("  hello world  ")
 	fmt.Printf("Processed: '%s'\n", result)
 }
-

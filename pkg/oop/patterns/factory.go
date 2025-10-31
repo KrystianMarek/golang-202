@@ -61,7 +61,7 @@ func (p *PushNotification) GetType() string {
 }
 
 // NewNotification is a factory function that creates notifications.
-func NewNotification(notifType string, target string) Notification {
+func NewNotification(notifType, target string) Notification {
 	switch notifType {
 	case "email":
 		return &EmailNotification{To: target}
@@ -127,7 +127,7 @@ func (w *WordDocument) GetFormat() string {
 type DocumentFactory struct{}
 
 // CreateDocument is a factory method.
-func (f *DocumentFactory) CreateDocument(format string, filename string) Document {
+func (f *DocumentFactory) CreateDocument(format, filename string) Document {
 	switch format {
 	case "pdf":
 		return &PDFDocument{Filename: filename}
@@ -204,10 +204,8 @@ func ExampleFactory() {
 
 	notifications := []Notification{email, sms, push}
 	for _, n := range notifications {
-		n.Send(fmt.Sprintf("Hello from %s!", n.GetType()))
+		_ = n.Send(fmt.Sprintf("Hello from %s!", n.GetType()))
 	}
-
-
 
 	// Factory method pattern
 	docFactory := &DocumentFactory{}
@@ -215,12 +213,10 @@ func ExampleFactory() {
 	word := docFactory.CreateDocument("docx", "letter.docx")
 
 	fmt.Println(pdf.Open())
-	pdf.Save("PDF content")
+	_ = pdf.Save("PDF content")
 
 	fmt.Println(word.Open())
-	word.Save("Word content")
-
-
+	_ = word.Save("Word content")
 
 	// Abstract factory pattern
 	roadLogistics := &RoadLogistics{}
@@ -229,4 +225,3 @@ func ExampleFactory() {
 	fmt.Println(roadLogistics.Plan("New York"))
 	fmt.Println(seaLogistics.Plan("London"))
 }
-

@@ -27,4 +27,3 @@
 //		patterns.ExampleSingleton()
 //	}
 package oop
-

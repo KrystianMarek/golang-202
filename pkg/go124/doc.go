@@ -33,4 +33,3 @@
 //		go124.ExampleGenerics()
 //	}
 package go124
-

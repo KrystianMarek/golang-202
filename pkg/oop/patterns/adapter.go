@@ -25,7 +25,7 @@ func (a *AudioPlayer) Play(filename string) error {
 type LegacyVideoPlayer struct{}
 
 // PlayVideo has a different method signature.
-func (l *LegacyVideoPlayer) PlayVideo(videoFile string, format string) {
+func (l *LegacyVideoPlayer) PlayVideo(videoFile, format string) {
 	fmt.Printf("Playing %s video: %s\n", format, videoFile)
 }
 
@@ -53,7 +53,7 @@ func (v *VideoPlayerAdapter) Play(filename string) error {
 type ThirdPartyPayment struct{}
 
 // ProcessTransaction is the third-party method.
-func (t *ThirdPartyPayment) ProcessTransaction(amount float64, currency string, account string) bool {
+func (t *ThirdPartyPayment) ProcessTransaction(amount float64, currency, account string) bool {
 	fmt.Printf("Third-party processing: %.2f %s to account %s\n", amount, currency, account)
 	return true
 }
@@ -176,7 +176,7 @@ func ExampleAdapter() {
 
 	files := []string{"song.mp3", "movie.mp4", "video.avi"}
 	for i, player := range players {
-		player.Play(files[i])
+		_ = player.Play(files[i])
 	}
 
 	// Payment adapter

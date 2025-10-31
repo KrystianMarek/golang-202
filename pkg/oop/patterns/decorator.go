@@ -225,4 +225,3 @@ func ExampleDecorator() {
 
 	notifier.Send("Server alert: High CPU usage!")
 }
-

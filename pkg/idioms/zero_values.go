@@ -71,7 +71,7 @@ func (c *Cache) Set(key string, value interface{}) {
 	c.data[key] = value
 }
 
-// Mutex demonstrates zero value sync primitives.
+// Counter demonstrates zero value sync primitives.
 type Counter struct {
 	// sync.Mutex has a usable zero value
 	value int
@@ -122,7 +122,7 @@ func (o Optional[T]) OrElse(defaultValue T) T {
 	return defaultValue
 }
 
-// Builder demonstrates zero-value-friendly builder.
+// QueryBuilder demonstrates zero-value-friendly builder.
 type QueryBuilder struct {
 	table   string
 	columns []string // nil slice is valid

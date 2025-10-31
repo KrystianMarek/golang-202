@@ -111,44 +111,35 @@ func merge(ctx context.Context, channels ...<-chan int) <-chan int {
 	return output
 }
 
-// Tee splits a channel into two.
-func Tee(ctx context.Context, input <-chan int) (<-chan int, <-chan int) {
-	out1 := make(chan int)
-	out2 := make(chan int)
+// Tee splits a channel into two output channels.
+func Tee(ctx context.Context, input <-chan int) (out1, out2 <-chan int) {
+	ch1 := make(chan int)
+	ch2 := make(chan int)
+	out1, out2 = ch1, ch2
 
 	go func() {
-		defer close(out1)
-		defer close(out2)
+		defer close(ch1)
+		defer close(ch2)
 
 		for val := range input {
 			select {
 			case <-ctx.Done():
 				return
-			default:
+			case ch1 <- val:
 			}
 
-			// Send to both channels
-			for i := 0; i < 2; i++ {
-				select {
-				case <-ctx.Done():
-					return
-				case out1 <- val:
-					val2 := val
-					select {
-					case <-ctx.Done():
-						return
-					case out2 <- val2:
-					}
-					return
-				}
+			select {
+			case <-ctx.Done():
+				return
+			case ch2 <- val:
 			}
 		}
 	}()
 
-	return out1, out2
+	return
 }
 
-// Broadcast sends values to multiple subscribers.
+// Broadcaster sends values to multiple subscribers.
 type Broadcaster[T any] struct {
 	mu          sync.RWMutex
 	subscribers []chan T
@@ -356,4 +347,3 @@ func ExampleChannels() {
 		fmt.Println("Context cancelled - safe exit")
 	}
 }
-

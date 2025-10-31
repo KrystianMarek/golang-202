@@ -27,11 +27,11 @@ func main() {
 
 func runExample(name string) {
 	examples := map[string]func(){
-		"go124":       runGo124Examples,
-		"oop":         runOOPExamples,
-		"functional":  runFunctionalExamples,
-		"idioms":      runIdiomsExamples,
-		"patterns":    runPatternExamples,
+		"go124":      runGo124Examples,
+		"oop":        runOOPExamples,
+		"functional": runFunctionalExamples,
+		"idioms":     runIdiomsExamples,
+		"patterns":   runPatternExamples,
 	}
 
 	if fn, ok := examples[name]; ok {
@@ -132,4 +132,3 @@ func header(title string) {
 func separator() {
 	fmt.Println("\n" + strings.Repeat("─", 60) + "")
 }
-

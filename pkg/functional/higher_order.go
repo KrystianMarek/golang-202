@@ -208,4 +208,3 @@ func ExampleHigherOrder() {
 	fmt.Printf("Memoized fib(10) = %d\n", memoFib(10))
 	fmt.Printf("Memoized fib(10) = %d (cached)\n", memoFib(10))
 }
-

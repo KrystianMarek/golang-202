@@ -208,7 +208,6 @@ func ExampleErrors() {
 		fmt.Println("User not found (detected with errors.Is)")
 	}
 
-
 	// Custom error with errors.As
 	err = service.CreateUser("", "test@example.com")
 	var validationErr *ValidationError
@@ -216,7 +215,6 @@ func ExampleErrors() {
 		fmt.Printf("Validation error: field=%s, msg=%s\n",
 			validationErr.Field, validationErr.Message)
 	}
-
 
 	// Error wrapping
 	dbErr := &DatabaseError{
@@ -227,7 +225,6 @@ func ExampleErrors() {
 	if errors.Is(dbErr, ErrNotFound) {
 		fmt.Println("Underlying error is ErrNotFound")
 	}
-
 
 	// Multiple errors
 	items := []string{"valid", "", "forbidden", "ok"}
@@ -243,7 +240,6 @@ func ExampleErrors() {
 		}
 	}
 
-
 	// Result type
 	result := Divide(10, 2)
 	if result.IsOk() {
@@ -254,7 +250,6 @@ func ExampleErrors() {
 	if !result2.IsOk() {
 		fmt.Printf("Division error: %v\n", result2.Err)
 	}
-
 
 	// Error wrapping for context
 	originalErr := errors.New("connection timeout")
@@ -269,4 +264,3 @@ func ExampleErrors() {
 	)
 	fmt.Printf("Joined errors: %v\n", joinedErr)
 }
-

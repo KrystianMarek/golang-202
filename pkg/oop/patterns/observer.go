@@ -243,4 +243,3 @@ func ExampleObserver() {
 	eventBus.Close()
 	wg.Wait()
 }
-

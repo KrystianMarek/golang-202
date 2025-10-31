@@ -34,4 +34,3 @@
 //			Collect()
 //	}
 package functional
-

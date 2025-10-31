@@ -12,8 +12,8 @@ import (
 // Why? Singletons ensure only one instance exists globally.
 // Go's sync.Once provides thread-safe initialization.
 type Config struct {
-	AppName string
-	Version string
+	AppName  string
+	Version  string
 	Settings map[string]string
 }
 
@@ -153,10 +153,9 @@ func ExampleSingleton() {
 	db2 := GetDatabase()
 
 	fmt.Printf("Same DB instance: %v\n", db1 == db2)
-	db1.Connect()
-	db2.Connect()
+	_ = db1.Connect()
+	_ = db2.Connect()
 	db1.Disconnect()
-
 
 	// AppLogger singleton
 	logger1 := GetAppLogger()
@@ -169,4 +168,3 @@ func ExampleSingleton() {
 	logs := logger1.GetLogs()
 	fmt.Printf("\nTotal logs: %d\n", len(logs))
 }
-

@@ -173,4 +173,3 @@ func BenchmarkCacheGet(b *testing.B) {
 		cache.Get(i % 1000)
 	}
 }
-

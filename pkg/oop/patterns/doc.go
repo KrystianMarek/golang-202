@@ -39,4 +39,3 @@
 //		patterns.ExampleBuilder()
 //	}
 package patterns
-

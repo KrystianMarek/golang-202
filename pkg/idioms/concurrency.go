@@ -12,7 +12,7 @@ import (
 // Why? Go's built-in concurrency primitives make concurrent
 // programming accessible and idiomatic.
 
-// Generator creates a channel that produces values.
+// GenerateNumbers creates a channel that produces values.
 func GenerateNumbers(ctx context.Context, start, end int) <-chan int {
 	ch := make(chan int)
 
@@ -30,7 +30,7 @@ func GenerateNumbers(ctx context.Context, start, end int) <-chan int {
 	return ch
 }
 
-// Pipeline demonstrates channel-based pipelines.
+// Square demonstrates channel-based pipelines.
 func Square(ctx context.Context, in <-chan int) <-chan int {
 	out := make(chan int)
 
@@ -86,7 +86,7 @@ func FanIn(ctx context.Context, channels ...<-chan int) <-chan int {
 	return out
 }
 
-// Worker pool pattern.
+// WorkerPool demonstrates the worker pool pattern.
 type WorkerPool struct {
 	workers int
 	jobs    chan func()
@@ -128,7 +128,7 @@ func (p *WorkerPool) Close() {
 	p.wg.Wait()
 }
 
-// Select demonstrates the select statement.
+// SelectExample demonstrates the select statement.
 func SelectExample(ctx context.Context) {
 	ch1 := make(chan string)
 	ch2 := make(chan string)
@@ -156,7 +156,7 @@ func SelectExample(ctx context.Context) {
 	}
 }
 
-// Timeout pattern with context.
+// DoWithTimeout demonstrates timeout pattern with context.
 func DoWithTimeout(timeout time.Duration) error {
 	ctx, cancel := context.WithTimeout(context.Background(), timeout)
 	defer cancel()
@@ -289,11 +289,9 @@ func ExampleConcurrency() {
 
 	pool.Close()
 
-
 	// Select statement
 	fmt.Println("Select:")
 	SelectExample(ctx)
-
 
 	// Timeout
 	fmt.Println("Timeout:")
@@ -302,7 +300,6 @@ func ExampleConcurrency() {
 	} else {
 		fmt.Println("Operation completed")
 	}
-
 
 	// Rate limiter
 	fmt.Println("Rate Limiter:")
@@ -316,7 +313,6 @@ func ExampleConcurrency() {
 			fmt.Printf("Request %d: rate limited\n", i)
 		}
 	}
-
 
 	// Safe counter
 	fmt.Println("Safe Counter:")
@@ -334,4 +330,3 @@ func ExampleConcurrency() {
 	wg.Wait()
 	fmt.Printf("Final count: %d\n", counter.Value())
 }
-

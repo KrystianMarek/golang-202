@@ -115,13 +115,11 @@ func ExampleIterators() {
 		fmt.Printf("%d ", val)
 	}
 
-
 	fmt.Println("Even numbers from 0 to 10:")
 	evens := Filter(Range(0, 10), func(n int) bool { return n%2 == 0 })
 	for val := range evens {
 		fmt.Printf("%d ", val)
 	}
-
 
 	fmt.Println("Squares of 1 to 5:")
 	squares := Map(Range(1, 6), func(n int) int { return n * n })
@@ -130,4 +128,3 @@ func ExampleIterators() {
 	}
 
 }
-

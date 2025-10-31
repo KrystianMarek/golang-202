@@ -121,7 +121,7 @@ func (f *FileCompressor) SetStrategy(strategy CompressionStrategy) {
 }
 
 // Compress compresses data using the current strategy.
-func (f *FileCompressor) Compress(filename string, data string) string {
+func (f *FileCompressor) Compress(filename, data string) string {
 	compressed := f.strategy.Compress(data)
 	return fmt.Sprintf("File %s: %s", filename, compressed)
 }
@@ -226,14 +226,10 @@ func ExampleStrategy() {
 	})
 	fmt.Println(cart.Checkout())
 
-
-
 	cart2 := NewShoppingCart()
 	cart2.AddItem("Book", 19.99)
 	cart2.SetPaymentStrategy(&PayPalStrategy{Email: "user@example.com"})
 	fmt.Println(cart2.Checkout())
-
-
 
 	// Compression strategies
 	compressor := NewFileCompressor(&ZipCompression{})
@@ -242,17 +238,12 @@ func ExampleStrategy() {
 	compressor.SetStrategy(&RarCompression{})
 	fmt.Println(compressor.Compress("archive.txt", "Hello World"))
 
-
-
 	// Sorting strategies
 	data := []int{64, 34, 25, 12, 22, 11, 90}
 
 	sorter := NewSorter(&BubbleSort{})
 	sorter.Sort(data)
 
-
-
 	sorter = NewSorter(&QuickSort{})
 	sorter.Sort(data)
 }
-

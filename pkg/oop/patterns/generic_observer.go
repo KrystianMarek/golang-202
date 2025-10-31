@@ -267,4 +267,3 @@ func ExampleGenericObserver() {
 	channelSubject.Close()
 	wg.Wait()
 }
-

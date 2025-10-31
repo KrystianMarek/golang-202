@@ -144,7 +144,7 @@ func (b *EmailBuilder) Build() EmailMessage {
 }
 
 // Send simulates sending the email.
-func (e EmailMessage) Send() {
+func (e *EmailMessage) Send() {
 	fmt.Printf("Sending email from %s to %v\n", e.From, e.To)
 	fmt.Printf("Subject: %s\n", e.Subject)
 	fmt.Printf("Body: %s\n", e.Body)
@@ -269,7 +269,6 @@ func ExampleBuilder() {
 
 	email.Send()
 
-
 	// Query builder
 	query := NewQueryBuilder().
 		Select("id", "name", "email").
@@ -282,4 +281,3 @@ func ExampleBuilder() {
 
 	fmt.Printf("SQL Query: %s\n", query)
 }
-
